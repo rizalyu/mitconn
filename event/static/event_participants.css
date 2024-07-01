@@ -1,0 +1,82 @@
+.search-tools {
+    margin-top: 1.5em;
+    margin-bottom: 2em;
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 1.5em;
+}
+
+.search-form {
+    display: flex;
+    flex: 1;
+}
+
+.searchbar {
+    border: none;
+    background-color: #E4EEFF;
+    padding: 1em 2em;
+    flex: 1;
+    border-radius: 2em;
+}
+
+.filter-button {
+    padding: 0em 2em;
+    background-color: #4285F4;
+    color: white;
+    font-size: smaller;
+    border-radius: 1em;
+}
+
+.filter-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.filter-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 2em;
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+}
+
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.param-range {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.param-range > input {
+    justify-content: stretch;
+}
+
+.apply-button {
+    border: none;
+    box-shadow: none;
+    padding: 0em 2em;
+    background-color: #4285F4;
+    color: white;
+    font-size: smaller;
+    border-radius: 1em;
+}
+
+.delete-participant {
+    border: none;
+    background-color: transparent;
+    color: black;
+}

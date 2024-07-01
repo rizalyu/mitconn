@@ -1,0 +1,21 @@
+table {
+    border-spacing: 0cm;
+    width: 100%;
+}
+
+td {
+    padding: 1em 2em;
+}
+
+th {
+    text-align: left;
+    padding: 1em 2em;
+    color: white;
+    background-color: #4285F4;
+    font-weight: 500;
+    font-size: medium;
+}
+
+tr:nth-child(even) {
+    background-color: #E4EEFF;
+}

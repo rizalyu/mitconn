@@ -1,0 +1,44 @@
+{% extends 'product_detail.html' %}
+
+{% block extend-css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'product_detail_data.css' %}">
+{% endblock %}
+
+{% load product_history %}
+
+{% block section %}
+<div class="detail-section">
+    <p class="detail-title">ID Produk</p>
+    <p class="detail-value">{{ product.id }}</p>
+</div>
+<div class="detail-section">
+    <p class="detail-title">Kategori</p>
+    <p class="detail-value">{{ product.category }}</p>
+</div>
+<div class="detail-section">
+    <p class="detail-title">Deskripsi</p>
+    <p class="detail-value">{{ product.description }}</p>
+</div>
+<div class="detail-section">
+    <p class="detail-title">Kondisi Barang</p>
+    <p class="detail-value">{{ product.condition }}</p>
+</div>
+<div class="detail-section">
+    <p class="detail-title">Harga</p>
+    <p class="detail-value">Rp {{ product|latest_price }}</p>
+</div>
+<div class="detail-section">
+    <p class="detail-title">Terjual</p>
+    <p class="detail-value">{{ product|latest_sales }}</p>
+</div>
+<div class="detail-section">
+    <p class="detail-title">Rating</p>
+    <p class="detail-value">{{ product|latest_rating }}</p>
+</div>
+<div class="detail-section">
+    <p class="detail-title">Stok</p>
+    <p class="detail-value">{{ product|latest_stock }}</p>
+</div>
+
+{% endblock %}

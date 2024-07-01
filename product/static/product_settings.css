@@ -1,0 +1,11 @@
+.detail-section {
+    margin-bottom: 2em;
+}
+
+.detail-title {
+    font-weight: bold;
+}
+
+.delete-button {
+    color: red;
+}

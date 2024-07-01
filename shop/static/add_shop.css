@@ -1,0 +1,47 @@
+.content {
+    padding: 2em;
+    display: flex; /* Use flexbox to center content horizontally and vertically */
+    flex-direction: column; /* Stack items vertically (optional, adjust as needed) */
+    justify-content: center; /* Center content vertically */
+    align-items: center; /* Center content horizontally */
+    height: 100%;
+}
+
+.add-form {
+    width: 70%;
+    display: flex; /* Use flexbox to stack elements vertically */
+    flex-direction: column; /* Stack elements vertically */
+}
+
+#url-field {
+    background-color: #EFEFEF;
+    border-radius: 1em;
+    padding: 1em 2em;
+    border: none;
+}
+
+#url-field:focus {
+    outline: none;
+}
+
+#shop-field {
+    border-radius: 1em;
+    background-color: #EFEFEF;
+    padding: 1em 2em;
+    border: none;
+    margin-top: 2em;
+}
+
+#shop-field:focus {
+    outline: none;
+}
+
+#add-button {
+    background-color: #4285F4;
+    color: white;
+    border-radius: 1em;
+    width: 30%;
+    margin-top: 2em;
+    padding: 1em 2em;
+    border: none;
+}

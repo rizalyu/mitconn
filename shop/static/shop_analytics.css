@@ -1,0 +1,23 @@
+.cards {
+    margin-top: 2em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 1.5em;
+}
+
+.card {
+    text-align: center;
+    padding: 0.5em 4em;
+    background-color: #F3F3F3;
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+.graph {
+    display: flex;
+    margin: auto;
+    max-width: 60%;
+}

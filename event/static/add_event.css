@@ -1,0 +1,36 @@
+.content {
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.add-form {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
+.text-field {
+    background-color: #EFEFEF;
+    border-radius: 1em;
+    padding: 1em 2em;
+    border: none;
+}
+
+.text-field:focus {
+    outline: none;
+}
+
+#add-button {
+    background-color: #4285F4;
+    color: white;
+    border-radius: 1em;
+    width: 30%;
+    margin-top: 2em;
+    padding: 1em 2em;
+    border: none;
+}

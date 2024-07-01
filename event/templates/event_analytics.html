@@ -1,0 +1,74 @@
+{% extends 'event_details_template.html' %}
+
+{% block extend-css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'event_analytics.css' %}">
+{% endblock %}
+
+{% block section %}
+
+{% load event_participants %}
+
+<div class="cards">
+    <div class="card">
+        <p id="event-products" class="card-title">{{ event|participant_count }}</p>
+        <p class="card-subtitle">Products</p>
+    </div>
+    <div class="card">
+        <p id="event-sales" class="card-title">{{ event|latest_event_sales }}</p>
+        <p class="card-subtitle">Sales</p>
+    </div>
+    <div class="card">
+        <p id="event-participants" class="card-title">{{ event|participant_count }}</p>
+        <p class="card-subtitle">Participants</p>
+    </div>
+    <div class="card">
+        <p id="event-location" class="card-title">{{ event|event_locations }}</p>
+        <p class="card-subtitle">Cities</p>
+    </div>
+</div>
+<p>Sales Graph</p>
+<div class="graph">
+    <canvas id="myChart"></canvas>
+</div>
+<a href="">View Leaderboards</a>
+<div id="participant-latest-sales" data-latest-sales="{{ latest_sales }}"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+<script>
+    const ctx = document.getElementById('myChart');
+
+    var latestSalesElement = document.getElementById('participant-latest-sales');
+    var latestSalesData = JSON.parse(latestSalesElement.getAttribute('data-latest-sales'));
+
+    console.log(latestSalesData);
+
+    var productArray = latestSalesData.map(function(item) {
+        return item.product.substring(0, 10);});
+
+    console.log(productArray);
+
+    var salesArray = latestSalesData.map(function(item) {
+    return item.latest_sales;});
+
+    console.log(salesArray);
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: productArray,
+            datasets: [{
+                label: 'Sales',
+                data: salesArray,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'shop_detail.html' %}
+
+{% block extend-css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'shop_analytics.css' %}">
+{% endblock %}
+
+{% block section %}
+
+{% load shop_history %}
+
+<div class="cards">
+    <div class="card">
+        <p class="card-title">{{ shop|product_count }}</p>
+        <p class="card-subtitle">Products</p>
+    </div>
+    <div class="card">
+        <p class="card-title">{{ shop|latest_sales }}</p>
+        <p class="card-subtitle">Sales</p>
+    </div>
+    <div class="card">
+        <p class="card-title">{{ shop|event_participated }}</p>
+        <p class="card-subtitle">Events Joined</p>
+    </div>
+    <div class="card">
+        <p class="card-title">{{ shop|latest_rating }}</p>
+        <p class="card-subtitle">Rating</p>
+    </div>
+</div>
+<p>Sales Graph</p>
+<div class="graph">
+    <canvas id="myChart"></canvas>
+</div>
+<a href="">View Leaderboards</a>
+<div id="chart-data" data-chart="{{ entry_sums }}"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+<script>
+    const ctx = document.getElementById('myChart');
+
+    var chartDataElement = document.getElementById('chart-data');
+    var chartData = JSON.parse(chartDataElement.getAttribute('data-chart'));
+
+    console.log(chartData);
+
+    var createdAtArray = chartData.map(function(item) {
+    return item.date});
+
+    var salesArray = chartData.map(function(item) {
+    return item.total_sales});
+
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: createdAtArray,
+            datasets: [{
+                label: 'Sales',
+                data: salesArray,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

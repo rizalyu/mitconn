@@ -1,0 +1,20 @@
+.content {
+    padding: 3em;
+}
+
+.section-selectors {
+    margin-top: 1em;
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+}
+
+.section-selector {
+    text-decoration: none;
+    color: black;
+    margin-bottom: 2em;
+}
+
+#section-active {
+    font-weight: bold;
+}

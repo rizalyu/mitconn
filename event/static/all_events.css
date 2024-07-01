@@ -1,0 +1,66 @@
+.content {
+    padding: 3em;
+}
+
+.content-header {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 2em;
+    margin: 1.5em 0em;
+}
+
+
+.search-form {
+    flex: 2;
+}
+
+ 
+.search-bar {
+    width: 100%;
+    padding: 1em;
+    border: none;
+    background-color: #E4EEFF;
+    border-radius: 0.5em;
+}
+
+.search-bar:focus {
+    outline: none;
+}
+
+.header-button {
+ border: none;
+ padding: 0em 2em;
+ background-color: #4285F4;   
+ color: white;
+ font-weight: bold;
+ border-radius: 0.5em;
+}
+
+.link-button {
+    flex: 1;
+    background-color: #4285F4;
+    color: white;
+    font-weight: bold;
+    border-radius: 0.5em;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    line-height: 2.5em; /* Set line-height equal to the button's height */
+}
+
+.event-status-selector {
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+
+}
+
+.event-status-selector > a {
+    text-decoration: none;
+    color: black;
+}
+
+.event-status-selector > #status-active {
+    font-weight: 600;
+}

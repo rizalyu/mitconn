@@ -1,0 +1,27 @@
+{% extends 'master.html' %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'add_shop.css' %}">
+{% endblock %}
+
+
+{% block title %} Add Shop {% endblock %}
+
+{% block content %}
+
+<div class="content">
+    <form action="{% url 'add-shop' %}" class="add-form" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" id="add-button">Add Shop</button>
+    </form>
+
+    {% if error_message %}
+    <script>
+      alert("{{ error_message|escapejs }}");
+    </script>
+    {% endif %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'master.html' %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'add_product.css' %}">
+{% endblock %}
+
+
+{% block title %} Add Product {% endblock %}
+
+{% block content %}
+
+<div class="content">
+    <form action="{% url 'add-product' %}" class="add-form" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <!-- <input type="text" id="url-field" placeholder="Product URL">
+        <select name="" id="shop-field">
+            <option value="" selected>Alibaba Cell</option>
+            <option value="">HSR</option>
+        </select> -->
+        <button type="submit" id="add-button">Add Product</button>
+    </form>
+
+    {% if error_message %}
+    <script>
+      alert("{{ error_message|escapejs }}");
+    </script>
+    {% endif %}
+</div>
+
+{% endblock %}

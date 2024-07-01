@@ -1,0 +1,18 @@
+{% extends 'product_detail.html' %}
+
+{% block extend-css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'product_settings.css' %}">
+{% endblock %}
+
+{% block section %}
+<div class="detail-section">
+    <p class="detail-title">URL Product</p>
+    <p class="detail-value">{{ product.url }}</p>
+</div>
+<div class="detail-section">
+    <p class="detail-title">Delete Product</p>
+    <p class="detail-value">By deleting a product, all saved product history will be lost</p>
+</div>
+<a href="" class="delete-button">Delete</a>
+{% endblock %}

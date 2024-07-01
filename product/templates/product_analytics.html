@@ -1,0 +1,46 @@
+{% extends 'product_detail.html' %}
+
+{% block extend-css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'product_analytics.css' %}">
+{% endblock %}
+
+{% block section %}
+<p>Sales Graph</p>
+<div class="graph">
+    <canvas id="myChart"></canvas>
+</div>
+<a href="">View Leaderboards</a>
+<div id="product-history" data-product-history="{{ history }}"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+<script>
+    const ctx = document.getElementById('myChart');
+
+    var productHistoryElement = document.getElementById('product-history');
+    var productHistoryData = JSON.parse(productHistoryElement.getAttribute('data-product-history'));
+
+    var createdAtArray = productHistoryData.map(function(item) {
+    return new Date(item.fields.created_at);});
+
+    var salesArray = productHistoryData.map(function(item) {
+    return item.fields.sold;});
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: createdAtArray,
+            datasets: [{
+                label: 'Sales',
+                data: salesArray,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

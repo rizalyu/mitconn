@@ -1,0 +1,82 @@
+{% extends 'event_details_template.html' %}
+
+{% block extend-css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'table.css' %}">
+<link rel="stylesheet" href="{% static 'event_participants.css' %}">
+{% endblock %}
+
+{% block section %}
+{% load event_participants %}
+
+
+<div class="search-tools">
+    <form action="" class="search-form">
+        <input type="text" name="" id="" class="searchbar" placeholder="Search">
+    </form>
+    <div class="filter-button" id="filter-button">
+        <p>Filter</p>
+    </div>
+    <a href="{% url 'add-participant' id=event.id %}">Add Participants</a>
+</div>
+<table class="participants-table">
+    <tr>
+        <th>Name</th>
+        <th>Shop</th>
+        <th>Sales</th>
+        <th>Action</th>
+    </tr>
+    {% for participant in participants %}
+    <tr>
+        <td id="participant-name">
+            <a href="">{{ participant.participant.name }}</a>
+        </td>
+        <td id="participant-shop">{{ participant.participant.owner }}</td>
+        <td id="participant-price">{{ participant|net_sales:event }}</td>
+        <form action="{% url 'delete_participant' event_id=event.id participant_id=participant.participant.id %}" method="post">
+            {% csrf_token %}
+            <td><button id="delete-participant-button" class="delete-participants" style="background-color: transparent; border: none; color: red; cursor: pointer;" type="submit">Delete</button></td>
+        </form>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="filter-modal" id="filter-modal">
+    <div class="filter-content">
+        <form action="" class="filter-form">
+            <select name="location" id="categories">
+                <option value="all" selected>All Location</option>
+                <option value="gadget">Surabaya</option>
+                <option value="otomotif">Gresik</option>
+            </select>
+            <div class="param-range">
+                <input type="number" name="minproducts" id="minproducts" placeholder="Min. Products">
+                <input type="number" name="maxproducts" id="maxproducts" placeholder="Max. Products">
+            </div>
+            <div class="param-range">
+                <input type="number" name="minsales" id="minsales" placeholder="Min. Sales">
+                <input type="number" name="maxsales" id="maxsales" placeholder="Max. Sales">
+            </div>
+            <button type="submit" class="apply-button">Apply Filter</button>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    filter_button = document.getElementById('filter-button');
+
+    filter_modal = document.getElementById('filter-modal');
+
+    filter_button.onclick = function() {
+        filter_modal.style.display = "block";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == filter_modal) {
+            filter_modal.style.display = "none";
+        }
+    }
+
+</script>
+{% endblock %}

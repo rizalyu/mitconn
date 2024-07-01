@@ -1,0 +1,29 @@
+{% extends 'master.html' %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'shop_detail.css' %}">
+
+{% block extend-css %}
+{% endblock %}
+
+{% endblock %}
+
+
+{% block title %}
+Shop Details
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h2 class="content-title">{{ shop.name }}</h2>
+    <p class="content-subtitle"><strong>{{ shop.location }}</strong></p>
+    <hr>
+    <div class="section-selectors">
+        <a href="{% url 'shop-analytics' id=shop.id %}" id="{% if request.resolver_match.url_name == 'shop-analytics' %}section-active{% endif %}" class="section-selector">Analytics</a>
+        <a href="{% url 'shop-products' id=shop.id %}" id="{% if request.resolver_match.url_name == 'shop-products' %}section-active{% endif %}" class="section-selector">Products</a>
+    </div>
+    {% block section %}
+    {% endblock %}
+</div>
+{% endblock %}

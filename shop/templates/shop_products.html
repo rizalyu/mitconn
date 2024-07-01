@@ -1,0 +1,104 @@
+{% extends 'shop_detail.html' %}
+
+{% block extend-css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'table.css' %}">
+<link rel="stylesheet" href="{% static 'shop_product.css' %}">
+{% endblock %}
+
+{% block section %}
+
+{% load shop_history %}
+
+<div class="search-tools">
+    <form action="" class="search-form">
+        <input type="text" name="" id="search" class="searchbar" placeholder="Search">
+    </form>
+    <div class="filter-button" id="filter-button">
+        <p>Filter</p>
+    </div>
+</div>
+<table class="products-table">
+    <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Sales</th>
+    </tr>
+    {% for product in shop.product_set.all %}
+    <tr>
+        <td><a href="{% url 'product-analytics' id=product.id %}">{{ product.name }}</a></td>
+        <td>{{ product|latest_price }}</td>
+        <td>{{ product|latest_product_sales }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="filter-modal" id="filter-modal">
+    <div class="filter-content">
+        <form action="" class="filter-form">
+            <select name="categories" id="categories">
+                <option value="all" selected>All Categories</option>
+                <option value="gadget">Gadget</option>
+                <option value="otomotif">Otomotif</option>
+            </select>
+            <div class="param-range">
+                <input type="number" name="minprice" id="minprice" placeholder="Min. Price">
+                <input type="number" name="maxprice" id="maxprice" placeholder="Max. Price">
+            </div>
+            <div class="param-range">
+                <input type="number" name="minsales" id="minsales" placeholder="Min. Sales">
+                <input type="number" name="maxsales" id="maxsales" placeholder="Max. Sales">
+            </div>
+            <button type="submit" class="apply-button">Apply Filter</button>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    filter_button = document.getElementById('filter-button');
+
+    filter_modal = document.getElementById('filter-modal');
+
+    filter_button.onclick = function() {
+        filter_modal.style.display = "block";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == filter_modal) {
+            filter_modal.style.display = "none";
+        }
+    }
+
+    let searchInput = document.getElementById('search');
+
+    searchInput.addEventListener('keyup', function () {
+        let filter = searchInput.value.toUpperCase();
+        let table = document.querySelector(".products-table");
+        let rows = table.getElementsByTagName("tr");
+
+        for (let j = 0; j < rows.length; j++) {
+            let cells = rows[j].getElementsByTagName("td");
+
+            if (cells.length > 0) {
+                let matchFound = false;
+
+                for (let i = 0; i < cells.length; i++) {
+                    let cellText = cells[i].innerHTML.toUpperCase();
+                    
+                    if (cellText.indexOf(filter) > -1) {
+                        matchFound = true;
+                        break;
+                    }
+                }
+
+                if (matchFound) {
+                    rows[j].style.display = "";
+                } else {
+                    rows[j].style.display = "none";
+                }
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends 'master.html' %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'all_events.css' %}">
+<link rel="stylesheet" href="{% static 'table.css' %}">
+{% endblock %}
+
+
+{% block title %} All Events {% endblock %}
+
+{% block content %}
+
+{% load event_participants %}
+
+<div class="content">
+    <div class="event-status-selector">
+        <a event-status-value="active" id="{% if status == 'active' %}status-active{% endif %}" href="{% url 'all-events' status='active' %}">Active</a>
+        <a event-status-value="upcoming" id="{% if status == 'upcoming' %}status-active{% endif %}" href="{% url 'all-events' status='upcoming' %}">Upcoming</a>
+        <a event-status-value="completed" id="{% if status == 'completed' %}status-active{% endif %}" href="{% url 'all-events' status='completed' %}">Completed</a>
+    </div>
+    <div class="content-header">
+        <form action="" class="search-form">
+            <input class="search-bar" type="text" placeholder="Search" id="search">
+        </form>
+        <a id="add-event-button" class="link-button" href="{% url 'add-event' %}">Add Event</a>
+    </div>
+    <table class="table" id="events-table">
+        <tr>
+            <th>Event Name</th>
+            <th>Participants</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+        {% if events %}
+        {% for event in events %}
+        <tr>
+            <td table-value="event-name">
+                <a href="{% url 'event-analytics' id=event.id %}">
+                    {{ event.name }}
+                </a>
+            </td>
+            <td table-value="event-participant-count">{{ event|participant_count }}</td>
+            <td table-value="event-startdate">{{event.startdate}}</td>
+            <td table-value="event-enddate">{{ event.enddate }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <p style="color: red;">No Event Founds In This Category</p>
+        {% endif %}
+    </table>
+</div>
+
+{% block js %}
+{% load static %}
+<script src="{% static 'all_event_search.js' %}"></script>
+{% endblock %}
+
+
+{% endblock %}

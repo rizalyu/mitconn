@@ -1,0 +1,92 @@
+{% extends 'master.html' %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'all_shops.css' %}">
+<link rel="stylesheet" href="{% static 'table.css' %}">
+{% endblock %}
+
+
+{% block title %} All Products {% endblock %}
+
+{% block content %}
+
+{% load shop_history %}
+
+
+<div class="content">
+    <div class="content-header">
+        <form action="" class="search-form">
+            <input class="search-bar" type="text" placeholder="Search" id="search">
+        </form>
+        <button class="header-button" id="filter-button">Filter</button>
+        <a class="link-button" href="{% url 'add-shop' %}">Add Shop</a>
+    </div>
+    <table class="products-table" id="myTable">
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Products</th>
+            <th>Sales</th>
+        </tr>
+        {% if shops %}
+        {% for shop in shops %}
+        <tr>
+            <td><a href="{% url 'shop-analytics' id=shop.id %}" style="text-decoration: none; color: black;">{{ shop.name }}</a></td>
+            <td>{{ shop.location }}</td>
+            <td>{{ shop.product_set.count }}</td>
+            <td>{{ shop|latest_sales }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <p style="color: red;">No Shops Found</p>
+        </tr>
+        {% endif %}
+    </table>
+</div>
+<div class="filter-modal" id="filter-modal">
+    <div class="filter-content">
+        <form action="{% url 'all-shops' %}" method="get" class="filter-form">
+            <select name="location" id="categories">
+                <option value="all" {% if filter_values.location == 'all' %}selected{% endif %}>All Location</option>
+                {% for location in unique_locations %}
+                    <option value="{{ location }}" {% if filter_values.location == location %}selected{% endif %}>{{ location }}</option>
+                {% endfor %}
+            </select>
+            <div class="param-range">
+                <input type="number" name="minproducts" id="minproducts" placeholder="Min. Products" value="{{ filter_values.min_products }}">
+                <input type="number" name="maxproducts" id="maxproducts" placeholder="Max. Products" value="{{ filter_values.max_products }}">
+            </div>
+            <div class="param-range">
+                <input type="number" name="minsales" id="minsales" placeholder="Min. Sales" value="{{ filter_values.min_sales }}">
+                <input type="number" name="maxsales" id="maxsales" placeholder="Max. Sales" value="{{ filter_values.max_sales }}">
+            </div> 
+            <button type="submit" class="apply-button">Apply Filter</button>
+        </form>
+    </div>
+</div>
+
+{% block js %}
+{% load static %}
+<script src="{% static 'all_shop_search.js' %}"></script>
+{% endblock %}
+
+<script>
+
+    filter_button = document.getElementById('filter-button');
+
+    filter_modal = document.getElementById('filter-modal');
+
+    filter_button.onclick = function() {
+        filter_modal.style.display = "block";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == filter_modal) {
+            filter_modal.style.display = "none";
+        }
+    }
+
+</script>
+{% endblock %}

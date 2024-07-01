@@ -1,0 +1,29 @@
+{% extends 'master.html' %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'event_details.css' %}">
+{% block extend-css %}
+{% endblock %}
+
+{% endblock %}
+
+
+{% block title %}
+Event Details
+{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h2 class="content-title">{{ event.name }}</h2>
+    <p class="content-subtitle"><strong>{{ event.startdate }} - {{ event.enddate }}</strong></p>
+    <hr>
+    <div class="section-selectors">
+        <a id="{% if request.resolver_match.url_name == 'event-analytics' %}section-active{% endif %}" href="{% url 'event-analytics' id=event.id %}" class="section-selector">Analytics</a>
+        <a id="{% if request.resolver_match.url_name == 'event-participants' %}section-active{% endif %}" href="{% url 'event-participants' id=event.id %}" class="section-selector">Participants</a>
+        <a id="{% if request.resolver_match.url_name == 'manage-event' %}section-active{% endif %}" href="{% url 'manage-event' id=event.id %}" class="section-selector">Manage Events</a>
+    </div>
+    {% block section %}
+    {% endblock %}
+</div>
+{% endblock %}

@@ -1,14 +1,79 @@
-<!DOCTYPE html>
-<html lang="id">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>RSDA-TREG5</title>
-    </head>
-    <body>
-        <div class="container">
+{% extends 'master.html' %}
 
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'dashboard.css' %}">
+{% endblock %}
+
+{% block title %} Dashboard {% endblock %}
+
+{% block content %}
+<div class="content">
+    <h2 class="content-title">Dashboard</h2>
+    <p class="content-subtitle">Overview</p>
+    <div class="card-group">
+        <div class="card">
+            <h3>{{ product_count }}</h3>
+            <p>Products</p>
         </div>
-    </body>
-</html>
+        <div class="card">
+            <h3>{{ total_sales }}</h3>
+            <p>Sales</p>
+        </div>
+        <div class="card">
+            <h3>{{ location_count }}</h3>
+            <p>Location</p>
+        </div>
+        <div class="card">
+            <h3>{{ shop_count }}</h3>
+            <p>Shops</p>
+        </div>
+    </div>
+    <p class="content-subtitle">Overview Graph</p>
+    <div class="graph">
+        <canvas id="myChart"></canvas>
+    </div>
+    <div id="shop-latest-sales" data-latest-sales="{{ shop_latest_sales }}"></div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        const ctx = document.getElementById('myChart');
+
+        var latestSalesElement = document.getElementById('shop-latest-sales');
+        var latestSalesData = JSON.parse(latestSalesElement.getAttribute('data-latest-sales'));
+
+        console.log(latestSalesData);
+
+
+        var shopArray = latestSalesData.map(function(item) {
+            return item.shop.shop_name;});
+
+        var salesArray = latestSalesData.map(function(item) {
+        return item.latest_sales;});
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: shopArray,
+                datasets: [{
+                    label: 'Sales',
+                    data: salesArray,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        function changeContent(page) {
+            document.getElementById('page-title').textContent = page;
+        }
+    </script>
+</div>
+{% endblock %}

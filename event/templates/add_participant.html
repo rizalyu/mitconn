@@ -1,0 +1,21 @@
+{% extends 'master.html' %}
+
+{% block css %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'add_participant.css' %}">
+{% endblock %}
+
+
+{% block title %} Create Event {% endblock %}
+
+{% block content %}
+
+<div class="content">
+    <form action="" class="add-form" id="add-participant-form" method="post">
+        {% csrf_token %}
+        {{ part_form }}
+        <button id="add-button">Create Event</button>
+    </form>
+</div>
+
+{% endblock %}
